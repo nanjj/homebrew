@@ -2,13 +2,13 @@ require 'formula'
 
 class Libcouchbase < Formula
   homepage 'http://couchbase.com/communities/c'
-  url 'http://packages.couchbase.com/clients/c/libcouchbase-2.3.2.tar.gz'
-  sha1 'e0c885e90aa37c2fcd3a3b188fd0bd1638b58276'
+  url 'http://packages.couchbase.com/clients/c/libcouchbase-2.4.3.tar.gz'
+  sha1 'a3be2316787f1fcd440806d00efdb023f021495d'
 
   bottle do
-    sha1 "5b68f33165ee3fb89323a7f35ab32860108d8c14" => :mavericks
-    sha1 "687f01a5258627f6ec9eb087f227c1a3b0a19493" => :mountain_lion
-    sha1 "dd1e96f09e6bf7d81e8c08603e064bd3d3bc1d3b" => :lion
+    sha1 "237c350c22cdff767e0cc309abede040b3c50b1b" => :yosemite
+    sha1 "be81fc70b47b32c87458a4b70aae70140843bebb" => :mavericks
+    sha1 "c44003721d7fe6a24aad62cf21e456f26e3235b1" => :mountain_lion
   end
 
   option :universal
@@ -17,6 +17,7 @@ class Libcouchbase < Formula
 
   depends_on 'libev' if build.with?('libev-plugin')
   depends_on 'libevent' if build.with?('libevent-plugin')
+  depends_on 'openssl'
 
   def install
     args = [

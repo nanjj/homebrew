@@ -2,15 +2,16 @@ require "formula"
 
 class Libav < Formula
   homepage "https://libav.org/"
-  url "https://libav.org/releases/libav-10.2.tar.xz"
-  sha1 "1e0b62d8414e43c1498fa0707e20111ca82fb04e"
+  url "https://libav.org/releases/libav-11.tar.xz"
+  sha1 "21f3c7c2154c0ad703872f2faa65ef20d6b7a14f"
 
   head "git://git.libav.org/libav.git"
 
   bottle do
-    sha1 "95038ff0028f5557fc185a39963199e473c8bebc" => :mavericks
-    sha1 "0efc6b925e4581e7a7aedbfd9d57f6acbf0218c3" => :mountain_lion
-    sha1 "005750c5d80aa19231d9ccba4c6e4fb215c0e5b5" => :lion
+    revision 1
+    sha1 "4e9ae48294c0a8895a1a8317a70ab1c1e65b9c0d" => :yosemite
+    sha1 "b090384d2f18e9fa4cda302a266ca0b74c930754" => :mavericks
+    sha1 "74be2bc63f46166e0883e9a2132eb87c5215c95e" => :mountain_lion
   end
 
   option "without-faac", "Disable AAC encoder via faac"
@@ -63,11 +64,10 @@ class Libav < Formula
       "--disable-debug",
       "--disable-shared",
       "--prefix=#{prefix}",
-      "--enable-doc",
       "--enable-gpl",
       "--enable-nonfree",
       "--enable-version3",
-      "--enable-zlib",
+      "--enable-vda",
       "--cc=#{ENV.cc}",
       "--host-cflags=#{ENV.cflags}",
       "--host-ldflags=#{ENV.ldflags}"
@@ -98,8 +98,8 @@ class Libav < Formula
 
     system "make"
 
-    bin.install "avconv", "avprobe", "avserver"
-    man1.install "doc/avconv.1", "doc/avprobe.1", "doc/avserver.1"
+    bin.install "avconv", "avprobe"
+    man1.install "doc/avconv.1", "doc/avprobe.1"
     if build.with? "sdl"
       bin.install "avplay"
       man1.install "doc/avplay.1"

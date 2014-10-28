@@ -2,18 +2,19 @@ require "formula"
 
 class Emscripten < Formula
   homepage "http://emscripten.org"
-  url "https://github.com/kripken/emscripten/archive/1.20.0.tar.gz"
-  sha1 "9a739dc963219f7c4ab70395ac21854e472457a6"
-
-  head "https://github.com/kripken/emscripten.git", :branch => "incoming"
+  url "https://github.com/kripken/emscripten/archive/1.25.2.tar.gz"
+  sha1 "6ef643c761d0e07d428fe882d007b48b82f9e0c2"
 
   bottle do
-    sha1 "93d836d075cefe1174a96d707f3702d7d7643f32" => :mavericks
-    sha1 "0ae5c8ff233727b9b49db1aa3b5b7ebc24665b91" => :mountain_lion
-    sha1 "fb534c99cb0e153a6478f6b065dd179c23205675" => :lion
+    revision 1
+    sha1 "2e43d32ea4e376d6815b41a21572ebde86d85e39" => :yosemite
+    sha1 "1665407229116c4cd0db67b9fa54489609684e1c" => :mavericks
+    sha1 "a96131a541e2b6bc0d0273646c41729870bd697a" => :mountain_lion
   end
 
   head do
+    url "https://github.com/kripken/emscripten.git", :branch => "incoming"
+
     resource "fastcomp" do
       url "https://github.com/kripken/emscripten-fastcomp.git", :branch => "incoming"
     end
@@ -25,16 +26,17 @@ class Emscripten < Formula
 
   stable do
     resource "fastcomp" do
-      url "https://github.com/kripken/emscripten-fastcomp/archive/1.16.0.tar.gz"
-      sha1 "ca10c5a8059fdd321143d8f10c0810176be3d467"
+      url "https://github.com/kripken/emscripten-fastcomp/archive/1.25.2.tar.gz"
+      sha1 "32421e56fc3c89820232649bba101d70eb592888"
     end
 
     resource "fastcomp-clang" do
-      url "https://github.com/kripken/emscripten-fastcomp-clang/archive/1.16.0.tar.gz"
-      sha1 "768a15d3a8cd9e92f87521cadf3e5f63f3e24fa1"
+      url "https://github.com/kripken/emscripten-fastcomp-clang/archive/1.25.2.tar.gz"
+      sha1 "576e5559e94211b352a33ad7b92c451f8ae690ec"
     end
   end
 
+  depends_on :python if MacOS.version <= :snow_leopard
   depends_on "node"
   depends_on "closure-compiler" => :optional
   depends_on "yuicompressor"
@@ -50,7 +52,7 @@ class Emscripten < Formula
     # All files from the repository are required as emscripten is a collection
     # of scripts which need to be installed in the same layout as in the Git
     # repository.
-    libexec.install Dir['*']
+    libexec.install Dir["*"]
 
     (buildpath/"fastcomp").install resource("fastcomp")
     (buildpath/"fastcomp/tools/clang").install resource("fastcomp-clang")
@@ -64,6 +66,10 @@ class Emscripten < Formula
     ]
 
     cd "fastcomp" do
+      # Fix for parsing Mac OS X version numbers >= 10.10
+      # https://groups.google.com/forum/#!msg/emscripten-discuss/8gb88R5eyqs/p9_82Wi2pSAJ
+      inreplace "Makefile.rules", '10.([0-9])', '10.([0-9]+)'
+      inreplace "Makefile.rules", '(10.[0-9])', '(10.[0-9]+)'
       system "./configure", *args
       system "make"
       system "make", "install"
@@ -80,7 +86,8 @@ class Emscripten < Formula
   end
 
   def caveats; <<-EOS.undent
-    Manually set LLVM_ROOT to \"#{opt_prefix}/libexec/llvm/bin\"
+    Manually set LLVM_ROOT to
+      #{opt_libexec}/llvm/bin
     in ~/.emscripten after running `emcc` for the first time.
     EOS
   end

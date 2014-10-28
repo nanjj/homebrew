@@ -1,19 +1,20 @@
-require 'formula'
+require "formula"
 
 class Zeromq < Formula
-  homepage 'http://www.zeromq.org/'
-  url 'http://download.zeromq.org/zeromq-4.0.4.tar.gz'
-  sha1 '2328014e5990efac31390439b75c5528e38e4490'
+  homepage "http://www.zeromq.org/"
+  url "http://download.zeromq.org/zeromq-4.0.5.tar.gz"
+  sha1 "a664ec63661a848ef46114029156a0a6006feecd"
+  revision 1
 
   bottle do
     cellar :any
-    sha1 "6760a4e1b2091ae81c5cb909a43bb9829e7540df" => :mavericks
-    sha1 "de92da055c50391f5e96cc48ab69694a906813cc" => :mountain_lion
-    sha1 "c367bd8f3e75637206d2217b19516d6442060057" => :lion
+    sha1 "7ab7265a9ee4bcf49a5b48da295d4698f883b71f" => :yosemite
+    sha1 "5e1c4991fb8d50a81ef56513d0f75ad32ff9a26d" => :mavericks
+    sha1 "f8d4eafd49c6f8c349544809768f39be95ba14b5" => :mountain_lion
   end
 
   head do
-    url 'https://github.com/zeromq/libzmq.git'
+    url "https://github.com/zeromq/libzmq.git"
 
     depends_on :autoconf
     depends_on :automake
@@ -22,11 +23,11 @@ class Zeromq < Formula
 
 
   option :universal
-  option 'with-pgm', 'Build with PGM extension'
+  option "with-pgm", "Build with PGM extension"
 
-  depends_on 'pkg-config' => :build
-  depends_on 'libpgm' if build.with? "pgm"
-  depends_on 'libsodium' => :optional
+  depends_on "pkg-config" => :build
+  depends_on "libpgm" if build.with? "pgm"
+  depends_on "libsodium" => :recommended
 
   def install
     ENV.universal_binary if build.universal?
@@ -39,12 +40,12 @@ class Zeromq < Formula
       args << "--with-system-pgm"
     end
 
-    args << "--with-libsodium" if build.with? 'libsodium'
+    args << "--with-libsodium" if build.with? "libsodium"
 
     system "./autogen.sh" if build.head?
     system "./configure", *args
     system "make"
-    system "make install"
+    system "make", "install"
   end
 
   def caveats; <<-EOS.undent

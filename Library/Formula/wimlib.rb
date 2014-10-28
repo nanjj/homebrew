@@ -1,19 +1,20 @@
-require 'formula'
+require "formula"
 
 class Wimlib < Formula
-  homepage 'http://sourceforge.net/projects/wimlib/'
-  url 'https://downloads.sourceforge.net/project/wimlib/wimlib-1.5.3.tar.gz'
-  sha1 '07cfd75ad452cb29f0061196db3bb38230ece3de'
+  homepage "http://sourceforge.net/projects/wimlib/"
+  url "https://downloads.sourceforge.net/project/wimlib/wimlib-1.7.1.tar.gz"
+  sha1 "ffbd2f138b396b0f1fb684294747d9c8b5421188"
 
   bottle do
     cellar :any
-    sha1 "5ded91da7bc581ef671d456c45598084a21d78dd" => :mavericks
-    sha1 "cff1e472add1248fc751d6fa8f93034a2af8b197" => :mountain_lion
-    sha1 "f7ed2dcc8efebe0702f188d3c0846392438b0c70" => :lion
+    revision 1
+    sha1 "f3771fc90479055608bf752f8c9884169aa63969" => :yosemite
+    sha1 "78db53c2dc541e8d784a56acf3ea45e52f1cd2b9" => :mavericks
+    sha1 "afeba655f906d59e9afc8acec3fd105a39d9e221" => :mountain_lion
   end
 
-  depends_on 'pkg-config' => :build
-  depends_on 'ntfs-3g'
+  depends_on "pkg-config" => :build
+  depends_on "ntfs-3g"
 
   def install
     system "./configure", "--disable-debug",

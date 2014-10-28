@@ -2,18 +2,20 @@ require 'formula'
 
 class PerconaServer < Formula
   homepage 'http://www.percona.com'
-  url 'http://www.percona.com/redir/downloads/Percona-Server-5.6/Percona-Server-5.6.19-67.0/source/tarball/percona-server-5.6.19-67.0.tar.gz'
-  version '5.6.19-67.0'
-  sha1 '472d1d2a06c3d0a5b13b838b58907571bb30bdbc'
+  url 'http://www.percona.com/redir/downloads/Percona-Server-5.6/LATEST/source/tarball/percona-server-5.6.21-69.0.tar.gz'
+  version '5.6.21-69.0'
+  sha1 '0071f263774d6acb9e8991a7574a79cc2b83bc0a'
+  revision 1
 
   bottle do
-    sha1 "562c8318f8a8e680983d65e36859eec99ae899cb" => :mavericks
-    sha1 "58e054193c5dd6de53ac3f4b3134f7e982043db9" => :mountain_lion
-    sha1 "9b01bc3461b39ce074fa201c7705bdf4382389cf" => :lion
+    sha1 "12a591763c3d23c2fc3cb764e4d107ba6047ed3a" => :yosemite
+    sha1 "f1dbe3dd290d75469237095727614aa569b697b9" => :mavericks
+    sha1 "288fcd0deacb49c786600b119ac2b765a1a44200" => :mountain_lion
   end
 
   depends_on 'cmake' => :build
   depends_on 'pidof' unless MacOS.version >= :mountain_lion
+  depends_on "openssl"
 
   option :universal
   option 'with-tests', 'Build with unit tests'

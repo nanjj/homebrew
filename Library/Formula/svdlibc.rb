@@ -8,14 +8,16 @@ class Svdlibc < Formula
 
   bottle do
     cellar :any
-    sha1 "b93902dd89836e59cb7a6600e43fd2619bce394b" => :mavericks
-    sha1 "ba72d568aa8b662c76e605936b090fda46f9e57a" => :mountain_lion
-    sha1 "e5863640f3112e1c35bae03f1dbbc1360f6e0a7e" => :lion
+    revision 2
+    sha1 "108aa560888b8b759a7e0da243397917da52b143" => :yosemite
+    sha1 "af943e46846a41be5c039c3d825003c30e2632d4" => :mavericks
+    sha1 "3a2b0a33888f387d531fc4a0f7de1d9ad370e5f5" => :mountain_lion
   end
 
   def install
     # make only builds - no configure or install targets, have to copy files manually
     system "make HOSTTYPE=target"
+    include.install "svdlib.h"
     lib.install "target/libsvd.a"
     bin.install "target/svd"
   end

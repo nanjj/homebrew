@@ -2,19 +2,16 @@ require "formula"
 
 class Libsodium < Formula
   homepage "https://github.com/jedisct1/libsodium/"
-  url "https://github.com/jedisct1/libsodium/releases/download/0.6.0/libsodium-0.6.0.tar.gz"
-  sha256 "84cdb6bf8ae3384f3ef78636f93bc689df748c1d36f87d4b6ab1e31c2d4dd145"
-  revision 1
+  url "https://github.com/jedisct1/libsodium/releases/download/1.0.0/libsodium-1.0.0.tar.gz"
+  sha256 "ced1fe3d2066953fea94f307a92f8ae41bf0643739a44309cbe43aa881dbc9a5"
 
   bottle do
     cellar :any
-    sha1 "17f16784be8dd6f3892fee1e8b765f248b395526" => :mavericks
-    sha1 "34e1cb906d01591db753b44f913bff23d6f24e8c" => :mountain_lion
-    sha1 "68d36857985a73fef90caf6e734b5107ba192ea8" => :lion
+    revision 1
+    sha1 "1432ec12353213ebfbb8e31e839eea9cedba7d2d" => :yosemite
+    sha1 "8b66ef0a978e3aac54036f447053585b809a6e40" => :mavericks
+    sha1 "9b6cc830b3b36e20ac8dcfc076e450ba1505c46f" => :mountain_lion
   end
-
-  # Required to generate the .pc file, but can be removed at the next release
-  depends_on "pkg-config" => :build
 
   head do
     url "https://github.com/jedisct1/libsodium.git"

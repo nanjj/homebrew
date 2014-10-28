@@ -1,16 +1,17 @@
 require "formula"
 
 class Ffmpeg < Formula
-  homepage "http://ffmpeg.org/"
-  url "http://ffmpeg.org/releases/ffmpeg-2.2.4.tar.bz2"
-  sha1 "571f36f92709b77808e6ef87a01e47e5df1fe319"
+  homepage "https://ffmpeg.org/"
+  url "https://ffmpeg.org/releases/ffmpeg-2.4.2.tar.bz2"
+  sha1 "8fedc6f235d8510f716bca1784faa8cbe5d9cf78"
 
   head "git://git.videolan.org/ffmpeg.git"
 
   bottle do
-    sha1 "28b913860b06c7642ae79a02d6b2ae83d8898459" => :mavericks
-    sha1 "e1ce47f8b7c2749f69080adaef347d65a351555a" => :mountain_lion
-    sha1 "d711e68a67e377af08b4a1706a84d8543deeeabe" => :lion
+    revision 1
+    sha1 "3ec4fe17082336a1d8bde43aa52af094760dedbb" => :yosemite
+    sha1 "e6de1a13aa53860fbf3e2b812d5c17df35306b5b" => :mavericks
+    sha1 "0bdfcdecc609fb9a1ae4fab42123f6cf0e477c1b" => :mountain_lion
   end
 
   option "without-x264", "Disable H.264 encoder"
@@ -104,6 +105,7 @@ class Ffmpeg < Formula
 
     if build.with? "openjpeg"
       args << "--enable-libopenjpeg"
+      args << "--disable-decoder=jpeg2000"
       args << "--extra-cflags=" + %x[pkg-config --cflags libopenjpeg].chomp
     end
 
